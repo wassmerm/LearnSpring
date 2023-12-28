@@ -9,3 +9,13 @@
 5.	Fetch data from a public REST API (e.g., Steam API, Rust, live weather data), and also store it in the database
 6.	Implement WebUI live update through both, Server-Sent-Events and (alternatively, in parallel) through WebSockets.
 7.	Implement Prometheus probes and a Kafka dashboard
+
+
+## Other skills to learn as we go:
+* Git
+* Testing
+* Clean Code
+* Maven / Gradle
+* Logging
+* Multithreading
+* 

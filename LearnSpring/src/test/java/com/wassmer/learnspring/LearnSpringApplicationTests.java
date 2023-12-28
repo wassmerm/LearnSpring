@@ -1,4 +1,4 @@
-package com.wassmer.LearnSpring;
+package com.wassmer.learnspring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
