@@ -4,13 +4,11 @@ package com.wassmer.learnspring.controller;
 import com.wassmer.learnspring.model.Employee;
 import com.wassmer.learnspring.repository.EmployeeRestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -24,10 +22,31 @@ public class EmployeeRestController {
     };
 
     @GetMapping("")
-    public List<Employee> findAll() { return null;}
+    public List<Employee> findAll() { return employeeRepository.findAll();}
 
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployee(@RequestParam Integer id) {
-        return employeeRepository.findById(id);
+    public Employee getEmployee(@PathVariable Integer id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public void create(@RequestBody Employee employee) {
+      employeeRepository.save(employee);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public void update(@RequestBody Employee employee, @PathVariable Integer id) {
+        if(!employeeRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found");
+        }
+        employeeRepository.save(employee);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        employeeRepository.delete(id);
     }
 }
