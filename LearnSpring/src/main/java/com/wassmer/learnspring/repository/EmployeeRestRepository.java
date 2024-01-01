@@ -33,6 +33,14 @@ public class EmployeeRestRepository {
         employeeList.add(employee);
     }
 
+    public boolean existsById(Integer id) {
+        return employeeList.stream().filter(c -> c.getId().equals(id)).count() > 0;
+    }
+
+    public void delete(Integer id) {
+        employeeList.removeIf(c -> c.getId().equals(id));
+    }
+
     // methods annotated by @PostConstruct are automatically invoked by Spring once the constructor
     // has been invoked, and once the dependencies have been injected. We are using this concept here
     // to allow us to initialize the repository with some dummy content.
@@ -44,11 +52,4 @@ public class EmployeeRestRepository {
         employeeList.add(e2);
     }
 
-    public boolean existsById(Integer id) {
-        return employeeList.stream().filter(c -> c.getId().equals(id)).count() > 0;
-    }
-
-    public void delete(Integer id) {
-        employeeList.removeIf(c -> c.getId().equals(id));
-    }
 }
