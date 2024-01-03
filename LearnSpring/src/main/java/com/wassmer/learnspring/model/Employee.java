@@ -1,7 +1,8 @@
 package com.wassmer.learnspring.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -10,7 +11,7 @@ import org.springframework.data.annotation.Id;
 @Setter
 public class Employee {
 
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer id;
     @NotBlank
